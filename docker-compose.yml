@@ -1,0 +1,125 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fisiohub-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: grupo25@UniforADS
+      MYSQL_DATABASE: sistema_clinico
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PACIENTES_SERVICE_URL=http://pacientes-service:3002
+      - MEDICOS_SERVICE_URL=http://medicos-service:3003
+      - REABILITACAO_SERVICE_URL=http://reabilitacao-service:3004
+      - QUESTIONARIOS_SERVICE_URL=http://questionarios-service:3005
+      - NOTIFICACOES_SERVICE_URL=http://notificacoes-service:3006
+    depends_on:
+      - auth-service
+      - pacientes-service
+      - medicos-service
+      - reabilitacao-service
+      - questionarios-service
+      - notificacoes-service
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+      - JWT_SECRET=grupo25@UniforADS
+    depends_on:
+      - mysql
+
+  pacientes-service:
+    build: ./pacientes-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+    depends_on:
+      - mysql
+
+  medicos-service:
+    build: ./medicos-service
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+    depends_on:
+      - mysql
+
+  reabilitacao-service:
+    build: ./reabilitacao-service
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+    depends_on:
+      - mysql
+
+  questionarios-service:
+    build: ./questionarios-service
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+    depends_on:
+      - mysql
+
+  notificacoes-service:
+    build: ./notificacoes-service
+    ports:
+      - "3006:3006"
+    environment:
+      - PORT=3006
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=grupo25@UniforADS
+      - DB_NAME=sistema_clinico
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=fisiohub.grupo25ads@email.com
+      - SMTP_PASS=fisiohub.grupo25ads
+    depends_on:
+      - mysql
+
+volumes:
+  db_data: 

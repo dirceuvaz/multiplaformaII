@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagrama de Arquitetura - FisioHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f7f7f7; }
+    .diagram-container { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 32px; margin: 40px auto; max-width: 1100px; }
+    .diagram-title { text-align: center; font-size: 2em; margin-bottom: 24px; }
+    .diagram-svg { width: 100%; height: 420px; display: block; margin: 0 auto; }
+    .legend { margin-top: 32px; font-size: 1em; color: #444; }
+    @media (max-width: 900px) {
+      .diagram-svg { height: 600px; }
+    }
+    @media (max-width: 700px) {
+      .diagram-svg { height: 900px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container diagram-container">
+    <div class="diagram-title">Diagrama de Arquitetura - FisioHub</div>
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <svg class="diagram-svg" viewBox="0 0 1100 420">
+          <!-- Usuário -->
+          <rect x="30" y="170" width="120" height="60" rx="12" fill="#d1f7d6" stroke="#4ae26a" stroke-width="2"/>
+          <text x="90" y="205" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Usuário</text>
+
+          <!-- Seta para API Gateway -->
+          <line x1="150" y1="200" x2="260" y2="200" stroke="#888" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+          <!-- API Gateway -->
+          <rect x="260" y="170" width="140" height="60" rx="12" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="330" y="205" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">API Gateway</text>
+
+          <!-- Setas para microsserviços -->
+          <line x1="400" y1="200" x2="500" y2="80" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+          <line x1="400" y1="200" x2="500" y2="140" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+          <line x1="400" y1="200" x2="500" y2="200" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+          <line x1="400" y1="200" x2="500" y2="260" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+          <line x1="400" y1="200" x2="500" y2="320" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+          <line x1="400" y1="200" x2="500" y2="380" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+          <!-- Microsserviços -->
+          <rect x="500" y="60" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Auth Service</text>
+
+          <rect x="500" y="120" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Pacientes Service</text>
+
+          <rect x="500" y="180" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Médicos Service</text>
+
+          <rect x="500" y="240" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="265" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Reabilitação Service</text>
+
+          <rect x="500" y="300" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="325" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Questionários Service</text>
+
+          <rect x="500" y="360" width="140" height="40" rx="8" fill="#e3eaff" stroke="#4a90e2" stroke-width="2"/>
+          <text x="570" y="385" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Notificações Service</text>
+
+          <!-- Setas dos microsserviços para o banco -->
+          <line x1="640" y1="80" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+          <line x1="640" y1="140" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+          <line x1="640" y1="200" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+          <line x1="640" y1="260" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+          <line x1="640" y1="320" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+          <line x1="640" y1="380" x2="900" y2="200" stroke="#e2b84a" stroke-width="2" marker-end="url(#arrowhead-db)"/>
+
+          <!-- Banco de Dados -->
+          <ellipse cx="950" cy="200" rx="50" ry="40" fill="#fffbe3" stroke="#e2b84a" stroke-width="3"/>
+          <text x="950" y="200" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">MySQL
+Banco de Dados</text>
+
+          <!-- SMTP para Notificações -->
+          <rect x="900" y="320" width="100" height="40" rx="8" fill="#e3fff0" stroke="#4ae2a8" stroke-width="2"/>
+          <text x="950" y="345" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">SMTP (E-mail)</text>
+          <line x1="640" y1="380" x2="900" y2="340" stroke="#4ae2a8" stroke-width="2" marker-end="url(#arrowhead-smtp)"/>
+
+          <!-- Definições de setas -->
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#888" />
+            </marker>
+            <marker id="arrowhead-db" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#e2b84a" />
+            </marker>
+            <marker id="arrowhead-smtp" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#4ae2a8" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <div class="legend">
+      <strong>Legenda:</strong><br>
+      <span style="color:#4a90e2;">API Gateway</span>: ponto de entrada, roteia para os microsserviços.<br>
+      <span style="color:#4ae26a;">Auth Service</span>: centraliza cadastro, login e CRUD de usuários.<br>
+      <span style="color:#e2b84a;">MySQL</span>: banco central, persistido em volume Docker.<br>
+      <span style="color:#4ae2a8;">SMTP</span>: envio de e-mails por notificações.<br>
+      <br>
+      <em>Setas indicam o fluxo principal de requisições e integrações.</em>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

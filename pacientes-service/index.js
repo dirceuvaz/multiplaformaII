@@ -11,6 +11,13 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME
 });
 
+/**
+ * IMPORTANTE:
+ * O cadastro, atualização e deleção de pacientes deve ser feito exclusivamente pelo auth-service.
+ * Este serviço é responsável apenas pela leitura (GET) dos pacientes já cadastrados.
+ * Isso evita duplicidade de lógica e garante integridade dos dados de autenticação.
+ */
+
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 

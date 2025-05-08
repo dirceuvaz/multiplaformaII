@@ -1,6 +1,6 @@
 # FisioHub - Microsserviços
 
-Este projeto desenvolvido é uma arquitetura de microsserviços para atender um sistema de gestão de pacientes, desenvolvido em Node.js, com banco de dados MySQL e comunicação via API Gateway.
+Este projeto é uma arquitetura de microsserviços para um sistema de gestão clínica, desenvolvido em Node.js, com banco de dados MySQL e comunicação via API Gateway.
 
 ---
 
@@ -17,35 +17,33 @@ Este projeto desenvolvido é uma arquitetura de microsserviços para atender um 
 
 ---
 
-## Estrutura de Pastas
-
-```
-microsservicos/
-  api-gateway/
-  auth-service/
-  pacientes-service/
-  medicos-service/
-  reabilitacao-service/
-  questionarios-service/
-  notificacoes-service/
-  mysql-init/
-    fisiohub.sql
-  docker-compose.yml
-  README.md (este arquivo)
-```
-
----
-
 ## **Como rodar o projeto**
 
-1. **Configure os arquivos `.env`** em cada serviço, conforme os exemplos `.env`.
-2. **Garanta que o Docker Desktop está rodando em seu SERVIDOR**
-3. **Suba todos os serviços com Docker Compose:**
+1. **Configure os arquivos `.env`** em cada serviço, conforme os exemplos `.env.example`.
+2. **Garanta que o Docker Desktop está rodando.**
+3. **Suba todos os serviços:**
    ```bash
    docker-compose up --build
    ```
 4. O banco será inicializado automaticamente com o script `fisiohub.sql`.
-5. Acesse o API Gateway em `http://localhost:3000`. Ou acesse com seu IP.
+5. Acesse o API Gateway em `http://localhost:3000`.
+
+---
+
+## **Uso da Chave de API**
+
+Para consumir os endpoints protegidos, é necessário enviar a **chave de API** no cabeçalho da requisição. A chave de API está configurada no arquivo `.env` do **API Gateway**:
+
+```properties
+API_KEY=GP25apiKEYADS2k25
+```
+
+### **Como enviar a chave de API**
+
+Adicione o cabeçalho `x-api-key` em todas as requisições:
+
+- **Key**: `x-api-key`
+- **Value**: `GP25apiKEYADS2k25`
 
 ---
 
@@ -54,7 +52,11 @@ microsservicos/
 ### **1. Usuários (auth-service)**
 
 - **Cadastro de usuário (retorna token):**
-  - `POST http://localhost:3000/auth/register`
+  - `POST /auth/register`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
@@ -69,7 +71,11 @@ microsservicos/
     ```
 
 - **Login de usuário (retorna token):**
-  - `POST http://localhost:3000/auth/login`
+  - `POST /auth/login`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
@@ -79,13 +85,25 @@ microsservicos/
     ```
 
 - **Listar todos os usuários:**
-  - `GET http://localhost:3000/auth/usuarios`
+  - `GET /auth/usuarios`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Buscar usuário por ID:**
-  - `GET http://localhost:3000/auth/usuarios/:id`
+  - `GET /auth/usuarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Atualizar usuário:**
-  - `PUT http://localhost:3000/auth/usuarios/:id`
+  - `PUT /auth/usuarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
@@ -99,230 +117,274 @@ microsservicos/
     ```
 
 - **Deletar usuário:**
-  - `DELETE http://localhost:3000/auth/usuarios/:id`
+  - `DELETE /auth/usuarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 ---
 
 ### **2. Pacientes (pacientes-service)**
 
 - **Listar todos os pacientes:**
-  - `GET http://localhost:3000/pacientes`
+  - `GET /pacientes`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 ---
 
 ### **3. Médicos (medicos-service)**
 
-- **Listar todos os médicos:**
-  - `GET http://localhost:3000/medicos`
-
-- **Buscar médico por ID:**
-  - `GET http://localhost:3000/medicos/:id`
-
-- **Atualizar médico:**
-  - `PUT http://localhost:3000/medicos/:id`
+- **Criar médico:**
+  - `POST /medicos`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
-     {
-        "id": 6,
-        "nome": "João Bosco",
-        "email": "joao.bosco@gmail.com",
-        "cpf": "00000000000",
-        "genero": null
+    {
+      "nome": "Dr. João",
+      "email": "dr.joao@gmail.com",
+      "especialidade": "Ortopedia",
+      "crm": "123456",
+      "telefone": "99999-9999"
+    }
+    ```
+
+- **Listar todos os médicos:**
+  - `GET /medicos`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
+
+- **Buscar médico por ID:**
+  - `GET /medicos/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
+
+- **Atualizar médico:**
+  - `PUT /medicos/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
+  - **Body (JSON):**
+    ```json
+    {
+      "nome": "Dr. João Atualizado",
+      "especialidade": "Fisioterapia",
+      "crm": "654321",
+      "telefone": "88888-8888"
     }
     ```
 
 - **Deletar médico:**
-  - `DELETE http://localhost:3000/medicos/:id`
+  - `DELETE /medicos/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 ---
 
 ### **4. Reabilitação (reabilitacao-service)**
 
 - **Criar reabilitação:**
-  - `POST http://localhost:3000/reabilitacao`
+  - `POST /reabilitacao`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
-      "nome": "Reabilitação B",
-      "desc": "Descrição B",
-      "momento": "Momento B",
-      "desc_momento": "Descrição do Momento B",
-      "ordem": 2,
-      "usuarioId": 7
+      "nome": "Reabilitação Pós-Cirúrgica",
+      "descricao": "Foco em recuperação muscular",
+      "usuarioId": 1,
+      "dataInicio": "2025-05-01",
+      "dataFim": "2025-06-01"
     }
     ```
 
 - **Listar todas as reabilitações:**
-  - `GET http://localhost:3000/reabilitacao`
+  - `GET /reabilitacao`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Buscar reabilitação por ID:**
-  - `GET http://localhost:3000/reabilitacao/:id`
+  - `GET /reabilitacao/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Atualizar reabilitação:**
-  - `PUT http://localhost:3000/reabilitacao/:id`
+  - `PUT /reabilitacao/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
       "nome": "Reabilitação Atualizada",
-      "desc": "Descrição Atualizada",
-      "momento": "Momento Atualizado",
-      "desc_momento": "Descrição do Momento Atualizado",
-      "ordem": 5,
-      "usuarioId": null
+      "descricao": "Nova descrição",
+      "dataInicio": "2025-05-15",
+      "dataFim": "2025-06-15"
     }
     ```
 
 - **Deletar reabilitação:**
-  - `DELETE http://localhost:3000/reabilitacao/:id`
+  - `DELETE /reabilitacao/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 ---
 
 ### **5. Questionários (questionarios-service)**
 
 - **Criar questionário:**
-  - `POST http://localhost:3000/questionarios`
+  - `POST /questionarios`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
-      "titulo": "Questionário A",
-      "desc": "Descrição do questionário A",
-      "pergunta": "Qual é a sua opinião?",
-      "nota": "10",
-      "resposta": "Resposta A",
+      "titulo": "Questionário de Avaliação",
+      "descricao": "Avaliação inicial do paciente",
+      "perguntas": [
+        "Como você se sente hoje?",
+        "Qual o nível de dor?"
+      ],
       "usuarioId": 1
     }
     ```
 
 - **Listar todos os questionários:**
-  - `GET http://localhost:3000/questionarios`
+  - `GET /questionarios`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Buscar questionário por ID:**
-  - `GET http://localhost:3000/questionarios/:id`
+  - `GET /questionarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Atualizar questionário:**
-  - `PUT http://localhost:3000/questionarios/:id`
+  - `PUT /questionarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
-    "titulo": "Questionário Atualizado",
-    "desc": "Descrição Atualizada",
-    "pergunta": "Pergunta Atualizada",
-    "nota": "9",
-    "resposta": "Resposta Atualizada",
-    "usuarioId": 2
+      "titulo": "Questionário Atualizado",
+      "descricao": "Nova descrição",
+      "perguntas": [
+        "Como você avalia sua recuperação?",
+        "Você sente alguma dificuldade?"
+      ]
     }
     ```
 
 - **Deletar questionário:**
-  - `DELETE http://localhost:3000/questionarios/:id`
+  - `DELETE /questionarios/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 ---
 
 ### **6. Notificações (notificacoes-service)**
 
 - **Criar notificação:**
-  - `POST http://localhost:3000/notificacoes`
+  - `POST /notificacoes`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
-    "titulo": "Bem-vindo ao sistema!",
-    "assunto": "Criação de Acesso",
-    "mensagem": "Seu acesso foi criado com sucesso.",
-    "remetente": "admin@clinica.com",
-    "destinatario": "paciente.GP25ads@gmail.com",
-    "usuarioId": 3,
-    "status": "pendente"
+      "titulo": "Bem-vindo ao sistema!",
+      "assunto": "Criação de Acesso",
+      "mensagem": "Seu acesso foi criado com sucesso.",
+      "remetente": "admin@clinica.com",
+      "destinatario": "paciente@gmail.com",
+      "usuarioId": 1,
+      "status": "pendente"
     }
-      ```
+    ```
 
 - **Listar todas as notificações:**
-  - `GET http://localhost:3000/notificacoes`
+  - `GET /notificacoes`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Buscar notificação por ID:**
-  - `GET http://localhost:3000/notificacoes/:id`
+  - `GET /notificacoes/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Atualizar notificação:**
-  - `PUT http://localhost:3000/notificacoes/:id`
+  - `PUT /notificacoes/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
   - **Body (JSON):**
     ```json
     {
       "titulo": "Notificação Atualizada",
-      "assunto": "Atualização de Cadastro",
-      "mensagem": "Seus dados foram atualizados com sucesso.",
-      "remetente": "admin@clinica.com",
-      "destinatario": "paciente.GP25ads@gmail.com",
       "status": "enviada"
     }
     ```
 
 - **Deletar notificação:**
-  - `DELETE http://localhost:3000/notificacoes/:id`
+  - `DELETE /notificacoes/:id`
+  - **Headers**:
+    ```
+    x-api-key: GP25apiKEYADS2k25
+    ```
 
 - **Enviar notificação por ID:**
-  - `POST http://localhost:3000/notificacoes/:id/enviar`
+  - `POST /notificacoes/:id/enviar`
 
 ---
 
 ## **Como usar no Postman**
 
-1. **Importe os endpoints no Postman**:
-   - Crie uma nova coleção e adicione os endpoints listados acima.
-   - Configure o **Body** do tipo RAW com JSON e os parâmetros conforme necessário.
+1. **Adicione o cabeçalho `x-api-key` em todas as requisições**:
+   - **Key**: `x-api-key`
+   - **Value**: `GP25apiKEYADS2k25`
 
-2. **Autenticação com Token JWT**:
-   - Após o login (`POST /auth/login`), copie o token JWT retornado.
-   - Adicione o token no **Header** das requisições protegidas:
-     ```
-     Authorization: Bearer <seu_token_jwt>
-     ```
+2. **Configure o Body e os parâmetros conforme necessário**.
+
+3. **Teste os endpoints protegidos**.
 
 ---
 
-## **Exemplo de uso com JavaScript (Frontend)**
-
-Aqui está um exemplo simples de como consumir os endpoints usando **fetch** no frontend:
-
-```javascript
-// URL do API Gateway
-const API_URL = 'http://localhost:3000'; // MUDE PARA SEU IP
-
-// Função para login
-async function login(email, senha) {
-  const response = await fetch(`${API_URL}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, senha })
-  });
-  const data = await response.json();
-  if (response.ok) {
-    console.log('Login bem-sucedido:', data);
-    return data.token; // Retorna o token JWT
-  } else {
-    console.error('Erro no login:', data);
-  }
-}
-
-// Função para listar notificações
-async function listarNotificacoes(token) {
-  const response = await fetch(`${API_URL}/notificacoes`, {
-    method: 'GET',
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  const data = await response.json();
-  if (response.ok) {
-    console.log('Notificações:', data);
-  } else {
-    console.error('Erro ao listar notificações:', data);
-  }
-}
-
-// Exemplo de uso
-(async () => {
-  const token = await login('admin@clinica.com', 'adminGP25');
-  if (token) {
-    await listarNotificacoes(token);
-  }
-})();
-```
-
----
+Se precisar de mais informações ou ajustes, é só avisar! 😊

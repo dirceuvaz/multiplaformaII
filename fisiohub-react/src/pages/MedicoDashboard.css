@@ -1,0 +1,91 @@
+.medico-dashboard-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.medico-dashboard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff3e0; /* Cor de fundo leve para Médico */
+  border-bottom: 1px solid #ffe0b2; /* Borda inferior */
+  margin-bottom: 20px;
+}
+
+.medico-dashboard-logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #e65100; /* Cor mais escura para destaque */
+}
+
+.medico-dashboard-nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.medico-dashboard-nav-link {
+  color: #f57c00; /* Cor de link */
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.medico-dashboard-nav-link:hover {
+  background-color: #ffe0b2; /* Fundo hover */
+}
+
+.medico-dashboard-title {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.medico-dashboard-section {
+  background-color: #fff9c4; /* Fundo levemente diferente para seções */
+  border: 1px solid #fff59d; /* Borda */
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.medico-dashboard-section h3 {
+  color: #fbc02d; /* Cor do título da seção */
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.medico-dashboard-section p {
+  color: #f9a825; /* Cor do texto */
+  line-height: 1.5;
+}
+
+.medico-dashboard-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #f57c00; /* Cor de link */
+  text-decoration: none;
+}
+
+.medico-dashboard-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade básica */
+@media (max-width: 600px) {
+  .medico-dashboard-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .medico-dashboard-nav-links {
+    margin-top: 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .medico-dashboard-title {
+    font-size: 1.5em;
+  }
+} 

@@ -1,0 +1,1 @@
+export default function HistoricoConsultas() { return <div>Histórico de Consultas</div> }

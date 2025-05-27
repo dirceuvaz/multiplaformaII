@@ -11,9 +11,14 @@ app.use(cors());
 
 // Middleware para proteger a API com uma senha
 app.use((req, res, next) => {
+  // Permite que requisições OPTIONS (pré-voo de CORS) passem sem autenticação
+  if (req.method === 'OPTIONS') {
+    return next(); // Permite a requisição OPTIONS passar
+  }
+
   const apiKey = req.headers['x-api-key']; // A senha será enviada no cabeçalho 'x-api-key'
   if (apiKey === process.env.API_KEY) {
-    next(); // Permite o acesso
+    next(); // Permite o acesso para outras requisições (GET, POST, etc.)
   } else {
     res.status(403).json({ error: 'Acesso negado. Chave de API inválida.' });
   }
@@ -33,4 +38,5 @@ app.use('/notificacoes', createProxyMiddleware({ target: process.env.NOTIFICACOE
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API Gateway rodando na porta de serviço: ${PORT}`);
+  console.log(`Alteração feita no arquivo index.js`);
 });

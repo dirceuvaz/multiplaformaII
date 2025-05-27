@@ -1,0 +1,1 @@
+export default function MedicosDisponiveis() { return <div>Médicos Disponíveis</div> }

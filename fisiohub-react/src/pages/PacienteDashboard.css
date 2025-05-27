@@ -1,0 +1,91 @@
+.paciente-dashboard-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.paciente-dashboard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e3f2fd; /* Cor de fundo leve */
+  border-bottom: 1px solid #c5e2f8; /* Borda inferior */
+  margin-bottom: 20px;
+}
+
+.paciente-dashboard-logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0d47a1; /* Cor mais escura para destaque */
+}
+
+.paciente-dashboard-nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.paciente-dashboard-nav-link {
+  color: #007bff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.paciente-dashboard-nav-link:hover {
+  background-color: #cce5ff;
+}
+
+.paciente-dashboard-title {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.paciente-dashboard-section {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.paciente-dashboard-section h3 {
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.paciente-dashboard-section p {
+  color: #666;
+  line-height: 1.5;
+}
+
+.paciente-dashboard-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.paciente-dashboard-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade básica */
+@media (max-width: 600px) {
+  .paciente-dashboard-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .paciente-dashboard-nav-links {
+    margin-top: 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .paciente-dashboard-title {
+    font-size: 1.5em;
+  }
+} 

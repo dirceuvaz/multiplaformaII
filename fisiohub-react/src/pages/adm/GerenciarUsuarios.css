@@ -1,0 +1,238 @@
+.gerenciar-usuarios-container {
+  padding: 20px;
+  background-color: #f9fafb; /* Cor de fundo clara */
+  min-height: 100vh;
+}
+
+.gerenciar-usuarios-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1e3a8a; /* Azul escuro */
+  margin-bottom: 20px;
+}
+
+.add-button {
+  background-color: #10b981; /* Verde esmeralda */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 0.25rem; /* Arredondamento leve */
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #059669; /* Verde mais escuro no hover */
+}
+
+.table-container {
+  overflow-x: auto;
+  background-color: #fff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Sombra leve */
+  border-radius: 0.25rem;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb; /* Linha divisória */
+}
+
+.users-table th {
+  background-color: #eff6ff; /* Azul claro */
+  font-weight: bold;
+  color: #1e3a8a; /* Azul escuro */
+}
+
+.users-table tbody tr:hover {
+  background-color: #f3f4f6; /* Cinza claro no hover */
+}
+
+.action-buttons button {
+  font-weight: medium;
+  margin-right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-button {
+  color: #3b82f6; /* Azul */
+}
+
+.edit-button:hover {
+  color: #2563eb; /* Azul mais escuro */
+}
+
+.delete-button {
+  color: #ef4444; /* Vermelho */
+}
+
+.delete-button:hover {
+  color: #dc2626; /* Vermelho mais escuro */
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay escuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra */
+  max-width: 500px;
+  width: 90%;
+  position: relative; /* Para posicionar o botão fechar */
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e3a8a; /* Azul escuro */
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  color: #374151; /* Cinza escuro */
+  font-size: 0.875rem; /* Pequeno */
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Sombra leve */
+  appearance: none;
+  border: 1px solid #d1d5db; /* Borda cinza */
+  border-radius: 0.25rem;
+  width: 100%;
+  padding: 10px 12px;
+  color: #374151; /* Cor do texto */
+  line-height: 1.25;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6; /* Azul */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Sombra de foco azul */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.save-button {
+  background-color: #3b82f6; /* Azul */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #2563eb; /* Azul mais escuro */
+}
+
+.cancel-button {
+  font-weight: bold;
+  font-size: 0.875rem; /* Pequeno */
+  color: #3b82f6; /* Azul */
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  color: #2563eb; /* Azul mais escuro */
+}
+
+.error-message {
+  color: #ef4444; /* Vermelho */
+  font-size: 0.875rem; /* Pequeno */
+  margin-bottom: 15px;
+}
+
+.loading-text {
+   text-align: center;
+   padding: 15px 0;
+   color: #6b7280; /* Cinza */
+   font-size: 1rem;
+}
+
+/* Pagination Styling */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px; /* Espaço entre os elementos */
+}
+
+.pagination-button {
+  background-color: #3b82f6; /* Azul */
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:disabled {
+  background-color: #93c5fd; /* Azul claro quando desabilitado */
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #2563eb; /* Azul mais escuro no hover */
+}
+
+.page-info {
+  font-size: 1rem;
+  color: #374151; /* Cinza escuro */
+}
+
+/* Back Button Styling */
+.back-button {
+  background-color: #6b7280; /* Cinza */
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px; /* Espaço abaixo do botão */
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #4b5563; /* Cinza mais escuro no hover */
+} 

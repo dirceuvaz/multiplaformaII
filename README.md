@@ -1,11 +1,39 @@
 # FisioHub - Microsserviços
 
-Este projeto é uma arquitetura de microsserviços para um sistema de gestão clínica, desenvolvido em Node.js, com banco de dados MySQL e comunicação via API Gateway.
+Este projeto é uma arquitetura de microsserviços para um sistema de gestão clínica, desenvolvido em Node.js, com banco de dados MySQL e comunicação via API Gateway. Inclui também uma aplicação frontend em React (Web) e Mobile React Native.
+
+---
+
+## **Pré-requisitos**
+
+Antes de começar, certifique-se de ter instalado:
+
+1. **Docker Desktop**
+   - [Download Docker Desktop](https://www.docker.com/products/docker-desktop)
+   - Versão recomendada: 4.0.0 ou superior
+   - Após a instalação, inicie o Docker Desktop e aguarde até que o ícone fique verde
+
+2. **Node.js**
+   - [Download Node.js](https://nodejs.org/)
+   - Versão recomendada: 18.x ou superior
+   - Para verificar a instalação:
+     ```bash
+     node --version
+     npm --version
+     ```
+
+3. **Git**
+   - [Download Git](https://git-scm.com/downloads)
+   - Para verificar a instalação:
+     ```bash
+     git --version
+     ```
 
 ---
 
 ## **Arquitetura**
 
+### Backend (Microsserviços)
 - **API Gateway:** Roteia todas as requisições para os microsserviços.
 - **auth-service:** Cadastro, autenticação e CRUD de usuários (centraliza criação de pacientes e médicos).
 - **pacientes-service:** Apenas leitura de pacientes (GET). Cadastro/edição/deleção centralizados no auth-service.
@@ -15,18 +43,102 @@ Este projeto é uma arquitetura de microsserviços para um sistema de gestão cl
 - **notificacoes-service:** CRUD completo de notificações, com envio de e-mail e campo status.
 - **MySQL:** Banco de dados relacional, com volume persistente.
 
+### Frontend
+- **fisiohub-react:** Aplicação web desenvolvida em React.js
+- **fisiohub-react-native:** Aplicação mobile desenvolvida em React Native
+
 ---
 
 ## **Como rodar o projeto**
 
-1. **Configure os arquivos `.env`** em cada serviço, conforme os exemplos `.env.example`.
-2. **Garanta que o Docker Desktop está rodando.**
-3. **Suba todos os serviços:**
+### 1. Clone o Repositório
+```bash
+git clone https://github.com/seu-usuario/fisiohub.git
+cd fisiohub
+```
+
+### 2. Configure os Arquivos de Ambiente
+1. Em cada serviço, copie o arquivo `.env.example` para `.env`:
+   ```bash
+   # No diretório raiz do projeto
+   cp api-gateway/.env.example api-gateway/.env
+   cp auth-service/.env.example auth-service/.env
+   cp pacientes-service/.env.example pacientes-service/.env
+   cp medicos-service/.env.example medicos-service/.env
+   cp reabilitacao-service/.env.example reabilitacao-service/.env
+   cp questionarios-service/.env.example questionarios-service/.env
+   cp notificacoes-service/.env.example notificacoes-service/.env
+   ```
+
+2. Verifique se as variáveis de ambiente estão corretas em cada arquivo `.env`
+
+### 3. Inicie os Serviços
+1. **Garanta que o Docker Desktop está rodando**
+   - Verifique se o ícone do Docker está verde na barra de tarefas
+   - Se não estiver, abra o Docker Desktop e aguarde a inicialização
+
+2. **Suba todos os serviços:**
    ```bash
    docker-compose up --build
    ```
-4. O banco será inicializado automaticamente com o script `fisiohub.sql`.
-5. Acesse o API Gateway em `http://localhost:3000`.
+   - Na primeira execução, isso pode levar alguns minutos
+   - Aguarde até ver a mensagem "Ready for connections" do MySQL
+
+3. **Verifique se todos os serviços estão rodando:**
+   ```bash
+   docker-compose ps
+   ```
+   - Todos os serviços devem mostrar status "Up"
+
+### 4. Acesse as Aplicações
+- API Gateway: `http://localhost:3000`
+- Aplicação Web (React): `http://localhost:3007`
+
+### 5. Teste a Instalação
+1. Acesse `http://localhost:3007` no navegador
+2. Você deve ver a tela de login da aplicação
+3. Se encontrar algum erro, verifique os logs:
+   ```bash
+   docker-compose logs -f
+   ```
+
+### **Solução de Problemas Comuns**
+
+1. **Erro de Porta em Uso**
+   - Verifique se as portas 3000, 3001-3008 não estão em uso
+   - Para verificar portas em uso (Windows):
+     ```bash
+     netstat -ano | findstr :3000
+     ```
+   - Para verificar portas em uso (Linux/Mac):
+     ```bash
+     lsof -i :3000
+     ```
+
+2. **Erro de Conexão com o MySQL**
+   - Aguarde alguns minutos após iniciar os serviços
+   - Verifique os logs do MySQL:
+     ```bash
+     docker-compose logs mysql
+     ```
+
+3. **Erro de Build**
+   - Limpe os containers e imagens:
+     ```bash
+     docker-compose down
+     docker system prune -a
+     ```
+   - Tente novamente:
+     ```bash
+     docker-compose up --build
+     ```
+
+4. **Erro de Permissão**
+   - No Windows, execute o PowerShell como administrador
+   - No Linux/Mac, use sudo:
+     ```bash
+     sudo docker-compose up --build
+     ```
 
 ---
 
@@ -386,5 +498,3 @@ Adicione o cabeçalho `x-api-key` em todas as requisições:
 3. **Teste os endpoints protegidos**.
 
 ---
-
-Se precisar de mais informações ou ajustes, é só avisar! 😊
